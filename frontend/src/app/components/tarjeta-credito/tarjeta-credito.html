@@ -1,1 +1,247 @@
-<p>tarjeta-credito works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="titulo">TARJETA DE CRÉDITO</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo">AGREGAR TARJETA</h5>
+          <form
+            [formGroup]="form"
+            (ngSubmit)="agregarTarjeta()"
+            autocomplete="off"
+          >
+            @let titularControl = form.get('titular'); @let errorTitular =
+            (titularControl?.dirty || submitted) && titularControl?.invalid;
+
+            <div class="input-group" [ngClass]="{ 'has-error': errorTitular }">
+              <span
+                class="input-group-text bg-icon"
+                [ngClass]="{
+                  'border-danger': errorTitular,
+                  'border-secondary': !errorTitular
+                }"
+              >
+                <i
+                  class="fa-solid fa-user"
+                  [ngClass]="{
+                    'text-danger': errorTitular,
+                    'text-info-emphasis': !errorTitular
+                  }"
+                ></i>
+              </span>
+
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'border-danger': errorTitular,
+                  'border-secondary': !errorTitular
+                }"
+                placeholder="Titular"
+                formControlName="titular"
+              />
+            </div>
+            <div class="mb-1">
+              @if ((titularControl?.dirty || submitted) &&
+              titularControl?.hasError('required')) {
+              <div class="text-danger">El campo titular es obligatorio.</div>
+              } @else if ((titularControl?.dirty || submitted) &&
+              titularControl?.hasError('pattern')) {
+              <div class="text-danger">Solo se permiten letras y espacios.</div>
+              } @else if ((titularControl?.dirty || submitted) &&
+              titularControl?.hasError('minlength')) {
+              <div class="text-danger">Debe tener mínimo 3 caracteres.</div>
+              } @else if ((titularControl?.dirty || submitted) &&
+              titularControl?.hasError('maxlength')) {
+              <div class="text-danger">Debe tener máximo 50 caracteres.</div>
+              }
+            </div>
+            @let numeroTarjetaControl = form.get('numeroTarjeta'); @let
+            errorNumeroTarjeta = (numeroTarjetaControl?.dirty || submitted) &&
+            numeroTarjetaControl?.invalid;
+            <div
+              class="input-group"
+              [ngClass]="{ 'has-error': errorNumeroTarjeta }"
+            >
+              <span
+                class="input-group-text bg-icon"
+                [ngClass]="{
+                  'border-danger': errorNumeroTarjeta,
+                  'border-secondary': !errorNumeroTarjeta
+                }"
+              >
+                <i
+                  class="fa-solid fa-credit-card"
+                  [ngClass]="{
+                    'text-danger': errorNumeroTarjeta,
+                    'text-info-emphasis': !errorNumeroTarjeta
+                  }"
+                ></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'border-danger': errorNumeroTarjeta,
+                  'border-secondary': !errorNumeroTarjeta
+                }"
+                placeholder="Número de tarjeta"
+                formControlName="numeroTarjeta"
+              />
+            </div>
+            <div class="mb-1">
+              @if ((numeroTarjetaControl?.dirty || submitted) &&
+              numeroTarjetaControl?.hasError('required')) {
+              <div class="text-danger">
+                El campo número de tarjeta es obligatorio.
+              </div>
+              } @else if ((numeroTarjetaControl?.dirty || submitted) &&
+              numeroTarjetaControl?.hasError('pattern')) {
+              <div class="text-danger">Debe ingresar 16 digitos numericos.</div>
+              }
+            </div>
+            <div class="row">
+              @let fechaExpiracionControl = form.get('fechaExpiracion'); @let
+              errorFechaExpiracion = (fechaExpiracionControl?.dirty ||
+              submitted) && fechaExpiracionControl?.invalid;
+              <div class="col-lg-7">
+                <div
+                  class="input-group"
+                  [ngClass]="{ 'has-error': errorFechaExpiracion }"
+                >
+                  <span
+                    class="input-group-text bg-icon"
+                    [ngClass]="{
+                      'border-danger': errorFechaExpiracion,
+                      'border-secondary': !errorFechaExpiracion
+                    }"
+                  >
+                    <i
+                      class="fa-solid fa-calendar"
+                      [ngClass]="{
+                        'text-danger': errorFechaExpiracion,
+                        'text-info-emphasis': !errorFechaExpiracion
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'border-danger': errorFechaExpiracion,
+                      'border-secondary': !errorFechaExpiracion
+                    }"
+                    placeholder="MM/AA"
+                    formControlName="fechaExpiracion"
+                  />
+                </div>
+              </div>
+              @let ccvControl = form.get('ccv'); @let errorCcv =
+              (ccvControl?.dirty || submitted) && ccvControl?.invalid;
+              <div class="col-lg-5">
+                <div class="input-group" [ngClass]="{ 'has-error': errorCcv }">
+                  <span
+                    class="input-group-text bg-icon"
+                    [ngClass]="{
+                      'border-danger': errorCcv,
+                      'border-secondary': !errorCcv
+                    }"
+                  >
+                    <i
+                      class="fa-solid fa-key"
+                      [ngClass]="{
+                        'text-danger': errorCcv,
+                        'text-info-emphasis': !errorCcv
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    [ngClass]="{
+                      'border-danger': errorCcv,
+                      'border-secondary': !errorCcv
+                    }"
+                    placeholder="CCV"
+                    formControlName="ccv"
+                    maxlength="3"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="mb-1">
+                  @if ((fechaExpiracionControl?.dirty || submitted) &&
+                  fechaExpiracionControl?.hasError('required')) {
+                  <div class="text-danger">
+                    El campo fecha de expiración es obligatorio.
+                  </div>
+                  } @else if ((fechaExpiracionControl?.dirty || submitted) &&
+                  fechaExpiracionControl?.hasError('pattern')) {
+                  <div class="text-danger">Solo se permiten fechas MM/AA.</div>
+                  }
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="mb-1">
+                  @if ((ccvControl?.dirty || submitted) &&
+                  ccvControl?.hasError('required')) {
+                  <div class="text-danger">El campo CCV es obligatorio.</div>
+                  } @else if ((ccvControl?.dirty || submitted) &&
+                  ccvControl?.hasError('pattern')) {
+                  <div class="text-danger">
+                    Debe tener 3 caracteres numéricos.
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid mt-3">
+              <button
+                type="submit"
+                [disabled]="form.invalid"
+                class="btn"
+                [ngClass]="{
+                  'btn-success': !form.invalid,
+                  'btn-danger': form.invalid
+                }"
+              >
+                AGREGAR
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="titulo">LISTADO DE TARJETAS</h5>
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let tarjeta of listadoTarjetas; let i = index">
+                <td>{{ tarjeta.titular }}</td>
+                <td>{{ tarjeta.numeroTarjeta }}</td>
+                <td>{{ tarjeta.fechaExpiracion }}</td>
+                <td>{{ tarjeta.ccv }}</td>
+                <td><i class="fa-solid fa-pen-to-square text-info"></i></td>
+                <td><i (click)="eliminarTarjeta(i)" class="fa-solid fa-trash text-danger"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
